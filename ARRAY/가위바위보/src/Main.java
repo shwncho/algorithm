@@ -2,23 +2,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public ArrayList<Character> solution(int[] a, int[] b, int n){
-        ArrayList<Character> answer = new ArrayList<>();
+    public String solution(int[] a, int[] b, int n){
+        String answer = "";
         for(int i=0; i<n; i++){
-            if(a[i]==1 && b[i]==2)  answer.add('B');
-            else if(a[i]==1 && b[i]==3) answer.add('A');
-            else if(a[i]==1 && b[i]==1) answer.add('D');
-            else if(a[i]==2 && b[i]==1) answer.add('A');
-            else if(a[i]==2 && b[i]==2) answer.add('D');
-            else if(a[i]==2 && b[i]==3) answer.add('B');
-            else if(a[i]==3 && b[i]==1) answer.add('B');
-            else if(a[i]==3 && b[i]==2) answer.add('A');
-            else if(a[i]==3 && b[i]==3) answer.add('D');
-
+            if(a[i]==b[i])  answer+="D";
+            else if(a[i]==1 && b[i]==3) answer+="A";
+            else if(a[i]==2 && b[i]==1) answer+="A";
+            else if(a[i]==3 && b[i]==2) answer+="A";
+            else{
+                answer+="B";
+            }
         }
-
-
-
         return answer;
     }
 
@@ -37,8 +31,8 @@ public class Main {
             b[j]=sc.nextInt();
         }
 
-        for(char x:T.solution(a,b,n)){
+        for(char x: T.solution(a,b,n).toCharArray()){
             System.out.println(x);
-        }
+        };
     }
 }

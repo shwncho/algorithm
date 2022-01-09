@@ -7,7 +7,7 @@ public class Main {
         boolean isPrime=true;
         for(int i=0; i<n; i++){
             int result=0;
-            while(arr[i]!=0){
+            while(arr[i]>0){
                 result=result*10+arr[i]%10;
                 arr[i]=arr[i]/10;
             }

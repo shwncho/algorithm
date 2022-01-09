@@ -3,18 +3,13 @@ import java.util.Scanner;
 public class Main {
     public int solution(int n){
         int answer=0;
-        boolean isPrime=true;
+        int[] arr = new int[n+1];
         for(int i=2; i<=n; i++){
-            for(int j=2; j<=Math.sqrt(i); j++){
-                if(i%j==0)  isPrime=false;
+            if(arr[i]==0){
+                answer++;
+                for(int j=i; j<=n; j=j+i)   arr[j]=1;
             }
-            if(isPrime) answer++;
-
-            isPrime=true;
         }
-
-
-
         return answer;
     }
     public static void main(String[] args) {
