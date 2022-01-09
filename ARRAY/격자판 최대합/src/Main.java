@@ -4,24 +4,23 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
-    public int solution(ArrayList<Integer>[][]arr, int n){
-        int answer;
-        int rm=0,cm=0,ds1=0,ds2=0,a=4;
-        int max1,max2;
-
+    public int solution(int[][] arr, int n){
+        int answer=Integer.MIN_VALUE;
+        int rs,cs;  // rs=rowsum, cs=columnsum
+        int ds1=0,ds2=0; // ds1은 왼쪽대각선의 합, ds2는 오른쪽 대각선의 합
         for(int i=0; i<n; i++){
-            for(int j=0; j<; j++){
-                rm=Collections.max(arr[i]);
+            rs=cs=0;
+            for(int j=0; j<n; j++){
+                rs+=arr[i][j];
+                cs+=arr[j][i];
             }
-
+            answer=Math.max(answer,rs);
+            answer=Math.max(answer,cs);
             ds1+=arr[i][i];
-            ds2+=arr[i][a--];
-
+            ds2+=arr[i][n-i-1];
         }
-        max1=rm>cm ? rm : cm;
-        max2=ds1>ds2 ? ds1 : ds2;
-        answer=max1>max2 ? max1 : max2;
-
+        answer=Math.max(answer,ds1);
+        answer=Math.max(answer,ds2);
 
         return answer;
     }
@@ -29,10 +28,10 @@ public class Main {
         Main T = new Main();
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        ArrayList<Integer>[][] arr = new ArrayList[n][n];
+        int[][] arr = new int[n][n];
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
-                arr[i][j].add(sc.nextInt());
+                arr[i][j]=sc.nextInt();
             }
         }
         System.out.println(T.solution(arr,n));
