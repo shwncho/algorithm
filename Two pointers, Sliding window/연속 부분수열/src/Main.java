@@ -19,7 +19,7 @@ public class Main {
                 end++;
             }
 
-            if(end==n && sum==m)    answer++;
+            if(end==n && sum==m)    answer++;   //다음 루프에서의 sum으로 로직이 흘러가므로 end가 n일 때 다음 루프를 마지막 한 번 더 고려해주어야한다.
 
         }
         return answer;
