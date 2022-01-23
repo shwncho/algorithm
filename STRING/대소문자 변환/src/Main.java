@@ -8,7 +8,6 @@ public class Main{
             if(Character.isLowerCase(x))    answer+=Character.toUpperCase(x);
             else answer+=Character.toLowerCase(x);
         }
-
         return answer;
     }
     public static void main(String[] args) {
