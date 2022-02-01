@@ -6,7 +6,7 @@ public class Main {
     public static ArrayList<Integer> solution(int n, int k, int[] a){
         ArrayList<Integer> answer = new ArrayList<>();
         HashMap<Integer,Integer> test = new HashMap<>();
-        int s=0,e=0;
+        int s=0,e;
         for(e=0; e<n; e++){
             test.put(a[e],test.getOrDefault(a[e],0)+1);
             if(e>=k-1){
