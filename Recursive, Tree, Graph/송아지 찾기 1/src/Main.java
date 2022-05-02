@@ -1,54 +1,45 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-class Node{
-    int data;
-    Node lt,ct,rt;
-    public Node(int val){
-        data=val;
-        lt=ct=rt=null;
-    }
-}
-public class Main {
-    Node root;
-    public String BFS(Node root, int target){
-        Queue<Node> queue = new LinkedList<>();
+public class Main{
+    int[] dis={1,-1,5};
+    int[] ch;
+    Queue<Integer> Q = new LinkedList<>();
+    public int BFS(int s,int e){
+        ch=new int[10001];
+        ch[s]=1;
+        Q.offer(s);
         int L=0;
-        queue.offer(root);
-        while(!queue.isEmpty()){
-            Node tmp =queue.poll();
-            int key = tmp.data;
-            if(key==target) break;
-            tmp.lt=new Node(key+1);
-            tmp.ct=new Node(key-1);
-            tmp.rt=new Node(key+5);
-
-            queue.offer(tmp.lt);
-            queue.offer(tmp.ct);
-            queue.offer(tmp.rt);
-
-            L=(int)(Math.log10(queue.size()) / Math.log10(3));
+        while(!Q.isEmpty()){
+            int len=Q.size();
+            for(int i=0; i<len; i++){
+                int x=Q.poll();
+                for(int j=0; j<3; j++){
+                    int nx=x+dis[j];
+                    if(nx>=1 && nx<=10000 && nx ==e)    return L+1;
+                    if(nx>=1 && nx<=10000 && ch[nx]==0){
+                        ch[nx]=1;
+                        Q.offer(nx);
+                    }
+                }
+            }
+            L++;
         }
-        return String.valueOf(L);
-
-
+        return 0; //위 로직에서 정답을 못찾았을 경우
     }
     public static void main(String[] args) throws IOException {
-        Main tree = new Main();
+        Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int num = Integer.parseInt(st.nextToken());
-        int target = Integer.parseInt(st.nextToken());
-        tree.root=new Node(num);
-
-        bw.write(tree.BFS(tree.root,target));
-        bw.flush();
-
+        int s = Integer.parseInt(st.nextToken());
+        int e = Integer.parseInt(st.nextToken());
+        System.out.println(T.BFS(s,e));
         br.close();
-        bw.close();
     }
+
 }
