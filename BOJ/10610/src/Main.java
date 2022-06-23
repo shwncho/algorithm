@@ -11,19 +11,17 @@ import java.util.Collections;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] s = br.readLine().split("");
-        Integer[] arr = Arrays.stream(s).mapToInt(Integer::parseInt).boxed().toArray(Integer[]::new);
-        int tmp=0;
-        boolean zeroCheck = false;
+        String s = br.readLine();
+        Integer[] arr = Arrays.stream(s.split("")).mapToInt(Integer::parseInt).boxed().toArray(Integer[]::new);
+        int sum=0;
 
 
-        for(int i=0; i<s.length; i++){
-            if(arr[i]==0)   zeroCheck=true;
-            tmp+=arr[i];
+        for(int i=0; i<s.length(); i++){
+            sum+=arr[i];
         }
 
-        if(!zeroCheck) System.out.println(-1);
-        else if(tmp%3!=0) System.out.println(-1);
+        if(!s.contains("0")) System.out.println(-1);
+        else if(sum%3!=0) System.out.println(-1);
         else{
             Arrays.sort(arr, Collections.reverseOrder());
             for (Integer integer : arr) {
