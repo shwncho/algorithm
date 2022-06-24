@@ -1,56 +1,29 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashSet;
 
-public class Main {
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static HashSet<String> list1 = new HashSet<>();
-    static HashSet<String> list2 = new HashSet<>();
+public class Main{
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] str1 = br.readLine().split("");
+        String[] str2 = br.readLine().split("");
 
-    static int max=0;
-    public static void powerset(HashSet<String> list, String[] arr, boolean[] state, int i, int end) {
+        //(0,0)은 참조할 곳이 없으므로
+        //(1,1)부터 Top-Down 방식으로 시작해야 범위를 안벗어남 -> 행,열 1줄씩 추가
+        int[][] dp = new int[str1.length+1][str2.length+1];
 
-        // 탈출문
-        if (i >= end) {
-
-            // 현재 true로 체크되어 있는 인덱스의 값만 출력
-            for (int w = 0; w < end; w++) {
-
-                if (state[w]) {
-                    list.add(arr[w]);
+        for(int i=1; i<=str1.length; i++){
+            for(int j=1; j<=str2.length; j++){
+                if(str1[i-1].equals(str2[j-1])){
+                    dp[i][j]=dp[i-1][j-1]+1;
                 }
+                else{
+                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+
             }
-            return;
         }
 
-        // "내가 없을 경우"를 체크한 뒤 다른 부분집합을 구하는 재귀함수 호출 (다음 인덱스로 기준 이동)
-        state[i] = false;
-        powerset(list,arr, state, i + 1, end);
-
-        // "내가 있을 경우"를 체크한 뒤 다른 부분집합을 구하는 재귀함수 호출 (다음 인덱스로 기준 이동)
-        state[i] = true;
-        powerset(list,arr, state, i + 1, end);
-    }
-
-
-    public static void main(String[] args) throws IOException {
-        String s1 = br.readLine();
-        String s2 = br.readLine();
-
-
-        String[] arr1 = s1.split("");
-        String[] arr2 = s2.split("");
-
-        boolean[] state1 = new boolean[arr1.length];
-        boolean[] state2 = new boolean[arr2.length];
-
-        powerset(list1,arr1,state1,0,s1.length());
-        powerset(list2,arr2,state2,0,s2.length());
-
-        System.out.println(list1);
-        System.out.println(list2);
-
+        System.out.println(dp[str1.length][str2.length]);
     }
 }
