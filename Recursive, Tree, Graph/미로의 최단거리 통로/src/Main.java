@@ -17,17 +17,19 @@ public class Main {
     static int[] dy={0,1,0,-1};
     public void BFS(int x, int y){
         Queue<Point> Q = new LinkedList<>();
-        Point p = new Point(x,y);
         dis[x][y]=0;
-        Q.offer(p);
+        graph[x][y]=1;
+        Q.offer(new Point(x,y));
         while(!Q.isEmpty()){
             Point cp = Q.poll();
             for(int i=0; i<4; i++){
-                Point np = new Point(cp.x+dx[i],cp.y+dy[i]);
-                if(np.x>=1 && np.x<=7 && np.y>=1 && np.y<=7 && graph[np.x][np.y]==0){
-                    graph[cp.x][cp.y]=1;
-                    Q.offer(np);
-                    dis[np.x][np.y]=dis[cp.x][cp.y]+1;
+                int nx = cp.x+dx[i];
+                int ny = cp.y+dy[i];
+                if(nx>=1 && nx<=7 && ny>=1 && ny<=7 && graph[nx][ny]==0){
+                    //최소 방문 보장
+                    graph[nx][ny]=1;
+                    Q.offer(new Point(nx,ny));
+                    dis[nx][ny]=dis[cp.x][cp.y]+1;
                 }
             }
 
