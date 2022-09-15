@@ -10,6 +10,7 @@ public class Main {
             answer=Math.min(answer,L);
         }
         else{
+            //큰 금액부터 차감해가는 방식으로 하기 위해 내림차순
             for(int i=n-1; i>=0; i--){
                 DFS(L+1,sum+ch[i]);
             }
