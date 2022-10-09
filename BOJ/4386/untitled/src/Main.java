@@ -53,8 +53,8 @@ public class Main {
         for(int i=1; i<=n; i++) unf[i]=i;
         for(int i=0; i<n; i++){
             st=new StringTokenizer(br.readLine());
-            Double a = Double.parseDouble(st.nextToken());
-            Double b = Double.parseDouble(st.nextToken());
+            double a = Double.parseDouble(st.nextToken());
+            double b = Double.parseDouble(st.nextToken());
             pList.add(new Point(a,b,i+1));
         }
 
@@ -64,7 +64,7 @@ public class Main {
             }
         }
 
-        Double answer=0.0;
+        double answer=0.0;
         Collections.sort(eList);
 
 

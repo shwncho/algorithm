@@ -36,8 +36,8 @@ public class Main {
 
         Collections.sort(list);
 
-        int cnt=list.get(0).s==list.get(0).e ? 0 : 1;
-        int std = list.get(0).e;
+        int cnt=0;
+        int std=0;
         for(Room o : list){
             if(o.s>=std){
                 cnt++;
