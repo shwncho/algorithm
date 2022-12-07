@@ -70,4 +70,6 @@ modules.xml
 *.ipr
 *.xml
 
+BOJ/**/out
+BOJ/**/*.iml
 .DS_Store
