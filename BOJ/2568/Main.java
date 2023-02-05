@@ -52,6 +52,8 @@ public class Main {
                     if(answer.get(mid) < key)   left=mid+1;
                     else right=mid;
                 }
+                //List의 위치중 자신보다 큰 값이 나오는 곳에 저장
+                //list요소들의 값을 작게 유지해 LIS의 크기를 늘릴 수 있기 때문에
                 answer.set(right,key);
                 index[i]=right;
             }
