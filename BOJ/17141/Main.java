@@ -13,6 +13,7 @@ public class Main{
     static int[][] graph;
     static int answer = Integer.MAX_VALUE;
     static boolean[][] virus;
+    static boolean[][] wall;
     static int[] dx = {-1,0,1,0};
     static int[] dy = {0,1,0,-1};
     static boolean[][] visited;
@@ -25,10 +26,6 @@ public class Main{
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
                 copyGraph[i][j]=graph[i][j];
-                if(copyGraph[i][j]==1){
-                    visited[i][j]=true;
-                    continue;
-                }
 
                 if(virus[i][j]) {
                     q.offer(new Point(i, j));
@@ -42,11 +39,13 @@ public class Main{
             Point p = q.poll();
             int x = p.x;
             int y = p.y;
+
             max = Math.max(max,copyGraph[x][y]);
+
             for(int i=0; i<4; i++){
                 int nx = x+dx[i];
                 int ny = y+dy[i];
-                if(nx>=0 && nx<n && ny>=0 && ny<n && !visited[nx][ny]){
+                if(nx>=0 && nx<n && ny>=0 && ny<n && !visited[nx][ny] && !wall[nx][ny]){
                     copyGraph[nx][ny] = copyGraph[x][y]+1;
                     visited[nx][ny]=true;
                     q.offer(new Point(nx,ny));
@@ -55,7 +54,8 @@ public class Main{
         }
         for(int i=0; i<n; i++) {
             for (int j = 0; j < n; j++) {
-                if (!visited[i][j] && copyGraph[i][j] == 0){
+                //방문하지않고 0인곳 or 방문하지않고 바이러스를 놓을 수 있었던 곳
+                if (!visited[i][j] && (copyGraph[i][j] == 0 || copyGraph[i][j]==2)){
                     max = Integer.MAX_VALUE;
                     break;
                 }
@@ -76,7 +76,7 @@ public class Main{
                 if(!virus[x][y]){
                     graph[x][y]=0;
                     virus[x][y]=true;
-                    DFS(L+1,s+1);
+                    DFS(L+1,i+1);
                     virus[x][y]=false;
                     graph[x][y]=2;
 
@@ -94,11 +94,13 @@ public class Main{
 
         graph = new int[n][n];
         virus = new boolean[n][n];
+        wall = new boolean[n][n];
 
         for(int i=0; i<n; i++){
             st = new StringTokenizer(br.readLine());
             for(int j=0; j<n; j++){
                 graph[i][j]=Integer.parseInt(st.nextToken());
+                if(graph[i][j]==1)  wall[i][j]=true;
                 if(graph[i][j]==2)  virusList.add(new Point(i,j));
             }
         }
